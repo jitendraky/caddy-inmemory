@@ -27,7 +27,7 @@ func setup(c *caddy.Controller) error {
 	cfg := httpserver.GetConfig(c)
 
 	middleware := func(next httpserver.Handler) httpserver.Handler {
-		return cacheHandler{Next: next, Config: conf}
+		return cacheHandler{Next: next, Config: conf, Cache: newCache()}
 	}
 
 	cfg.AddMiddleware(middleware)

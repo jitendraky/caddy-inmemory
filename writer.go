@@ -15,18 +15,10 @@ type interceptingResponseWriter struct {
 }
 
 func (w *interceptingResponseWriter) WriteHeader(code int) {
-	fmt.Printf("WriteHeader(%s, %d)\n", w.Request.URL, code)
 	w.ResponseWriter.WriteHeader(code)
 }
 
 func (w *interceptingResponseWriter) Write(b []byte) (int, error) {
-
-	fmt.Printf("Write(%s, %d)\n", w.Request.URL, len(b))
-
-	if w.Request.URL.RequestURI() == "/" {
-		fmt.Printf("Bytes are: %s", string(b))
-	}
-
 	w.Writer.Write(b)
 	return w.ResponseWriter.Write(b)
 }
